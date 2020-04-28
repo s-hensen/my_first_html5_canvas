@@ -1,7 +1,7 @@
 var canvas = document.querySelector('canvas');
 var context = canvas.getContext('2d');
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+canvas.width = canvas.scrollWidth;
+canvas.height = canvas.scrollHeight;
 
 //CODE VOOR LATER VOOR HET MOGELIJK SCHALEN VAN HET VENSTER
 var wPercentage = 1;
@@ -26,7 +26,7 @@ vos_Idle_Right.src = "images/Fox_Idle_Right.png";
 vos_Idle_Right.addEventListener("load", loadImage, false);
 
 function loadImage(e) {
-  animate();
+    animate();
 }
 
 
@@ -45,97 +45,81 @@ var foxLeft = false;
 var foxRight = false;
 
 var mouse = {
-	x: undefined,
-	y: undefined
+    x: undefined,
+    y: undefined
 }
 
 canvas.addEventListener('mousemove',
-					   function(event){
-	x = event.x;
-	y = event.y;
-})
+        function (event) {
+            x = event.x;
+            y = event.y;
+        })
 
 canvas.addEventListener('touchmove',
         function (event) {
-            var touch = event.touches[0];
-            x = touch.clientX,
-                    y = touch.clientY
+            x = e.touches[0].offsetX;
+            y = e.touches[0].offsetY;
 
         })
 
-window.addEventListener('resize',
-						function(event){
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
-	
-	wPercentage = window.innerWidth / window.screen.availWidth;
-	hPercentage = window.innerHeight / window.screen.availHeight;
-	
-	if(wPercentage > hPercentage){
-		scale = hPercentage;
-	}
-	else{
-		scale = wPercentage;
-	}
-
-	
-	init();
-})
+canvas.addEventListener('resize',
+        function (event) {
+            canvas.width = canvas.scrollWidth;
+            canvas.height = canvas.scrollHeight;
+            wPercentage = window.scrollWidth / window.screen.availWidth;
+            hPercentage = window.scrollHeight / window.screen.availHeight;
+            if (wPercentage > hPercentage) {
+                scale = hPercentage;
+            } else {
+                scale = wPercentage;
+            }
 
 
-function init(){
-	canvas.width = window.innerWidth;
-	canvas.height = window.innerHeight;
+            init();
+        })
 
-	
+
+function init() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 }
 
-function animate(){
-	 context.clearRect(0, 0, window.innerWidth, window.innerHeight);
-	
-	if(vosX - x < -5){
-		vosX+= 2;
-		
-		 context.drawImage(vos_Right, shift, 0, frameWidth, frameHeight,
-                    vosX - frameWidth/2, window.innerHeight - 35 - frameHeight, 
-					frameWidth, frameHeight);
-		
-		foxRight = true;
-		foxLeft = false;
-	}
-	if(vosX - x > 5){
-		vosX-= 2;
-		
-		 context.drawImage(vos_Left, shift, 0, frameWidth, frameHeight,
-                    vosX - frameWidth/2, window.innerHeight - 35 - frameHeight, 
-					frameWidth, frameHeight);
-		
-		foxRight = false;
-		foxLeft = true;
-		
-	}if (vosX - x >= -5 && vosX - x <= 5){
-		if(foxLeft){
-			context.drawImage(vos_Idle_Left,vosX - frameWidth/2, window.innerHeight - 32 - frameHeight);
-		}
-		if(foxRight){
-			context.drawImage(vos_Idle_Right,vosX - frameWidth/2, window.innerHeight - 32 - frameHeight);
-		}
-	}
-	
-context.fillRect(0,innerHeight-40,innerWidth,40);
- 
-  shift += frameWidth + 0;
- 
-  if (currentFrame == totalFrames) {
-    shift = 0;
-    currentFrame = 0;
-  }
- 
-  currentFrame++;
- 
-  requestAnimationFrame(animate);
-	
-	
+function animate() {
+    context.clearRect(0, 0, window.innerWidth, window.innerHeight);
+    if (vosX - x < -5) {
+        vosX += 2;
+        context.drawImage(vos_Right, shift, 0, frameWidth, frameHeight,
+                vosX - frameWidth / 2, window.innerHeight - 35 - frameHeight,
+                frameWidth, frameHeight);
+        foxRight = true;
+        foxLeft = false;
+    }
+    if (vosX - x > 5) {
+        vosX -= 2;
+        context.drawImage(vos_Left, shift, 0, frameWidth, frameHeight,
+                vosX - frameWidth / 2, window.innerHeight - 35 - frameHeight,
+                frameWidth, frameHeight);
+        foxRight = false;
+        foxLeft = true;
+    }
+    if (vosX - x >= -5 && vosX - x <= 5) {
+        if (foxLeft) {
+            context.drawImage(vos_Idle_Left, vosX - frameWidth / 2, window.innerHeight - 32 - frameHeight);
+        }
+        if (foxRight) {
+            context.drawImage(vos_Idle_Right, vosX - frameWidth / 2, window.innerHeight - 32 - frameHeight);
+        }
+    }
+
+    context.fillRect(0, innerHeight - 40, innerWidth, 40);
+    shift += frameWidth + 0;
+    if (currentFrame == totalFrames) {
+        shift = 0;
+        currentFrame = 0;
+    }
+
+    currentFrame++;
+    requestAnimationFrame(animate);
 }
 
 init();
