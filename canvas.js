@@ -49,13 +49,13 @@ var mouse = {
 	y: undefined
 }
 
-window.addEventListener('mousemove',
+canvas.addEventListener('mousemove',
 					   function(event){
 	x = event.x;
 	y = event.y;
 })
 
-window.addEventListener('ontouchmove',
+canvas.addEventListener('ontouchmove',
 					   function(event){
 	window.addEventListener('touchmove',
         function (event) {
