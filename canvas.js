@@ -55,7 +55,7 @@ window.addEventListener('mousemove',
 	y = event.y;
 })
 
-window.addEventListener('touchmove',
+window.addEventListener('ontouchmove',
 					   function(event){
 	window.addEventListener('touchmove',
         function (event) {
