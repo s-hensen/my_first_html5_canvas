@@ -51,6 +51,12 @@ window.addEventListener('mousemove',
 	mouse.x = event.x;
 	mouse.y = event.y;
 })
+
+window.addEventListener('click',
+					   function(event){
+	mouse.x = event.x;
+	mouse.y = event.y;
+})
 window.addEventListener('resize',
 						function(event){
 	canvas.width = window.innerWidth;
