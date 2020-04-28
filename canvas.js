@@ -10,19 +10,19 @@ var scale = 1;
 
 //HET AANMAKEN VAN DE VARIABELE VOOR DE SPRITE-SHEET
 var vos_Right = new Image();
-vos_Right.src = "Sprites/Fox_Walking.png";
+vos_Right.src = "Images/Fox_Walking.png";
 vos_Right.addEventListener("load", loadImage, false);
 
 var vos_Left = new Image();
-vos_Left.src = "Sprites/Fox_Walking_L.png";
+vos_Left.src = "Images/Fox_Walking_L.png";
 vos_Left.addEventListener("load", loadImage, false);
 
 var vos_Idle_Left = new Image();
-vos_Idle_Left.src = "Sprites/Fox_Idle_Left.png";
+vos_Idle_Left.src = "Images/Fox_Idle_Left.png";
 vos_Idle_Left.addEventListener("load", loadImage, false);
 
 var vos_Idle_Right = new Image();
-vos_Idle_Right.src = "Sprites/Fox_Idle_Right.png";
+vos_Idle_Right.src = "Images/Fox_Idle_Right.png";
 vos_Idle_Right.addEventListener("load", loadImage, false);
 
 function loadImage(e) {
