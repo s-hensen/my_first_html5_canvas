@@ -51,11 +51,7 @@ window.addEventListener('mousemove',
 	mouse.x = event.x;
 	mouse.y = event.y;
 })
-window.addEventListener('touchmove',
-					   function(event){
-	mouse.x = event.x;
-	mouse.y = event.y;
-})
+
 
 window.addEventListener('resize',
 						function(event){
