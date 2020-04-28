@@ -10,19 +10,19 @@ var scale = 1;
 
 //HET AANMAKEN VAN DE VARIABELE VOOR DE SPRITE-SHEET
 var vos_Right = new Image();
-vos_Right.src = "images/Fox_Walking.png";
+vos_Right.src = "Sprites/Fox_Walking.png";
 vos_Right.addEventListener("load", loadImage, false);
 
 var vos_Left = new Image();
-vos_Left.src = "images/Fox_Walking_L.png";
+vos_Left.src = "Sprites/Fox_Walking_L.png";
 vos_Left.addEventListener("load", loadImage, false);
 
 var vos_Idle_Left = new Image();
-vos_Idle_Left.src = "images/Fox_Idle_Left.png";
+vos_Idle_Left.src = "Sprites/Fox_Idle_Left.png";
 vos_Idle_Left.addEventListener("load", loadImage, false);
 
 var vos_Idle_Right = new Image();
-vos_Idle_Right.src = "images/Fox_Idle_Right.png";
+vos_Idle_Right.src = "Sprites/Fox_Idle_Right.png";
 vos_Idle_Right.addEventListener("load", loadImage, false);
 
 function loadImage(e) {
@@ -39,6 +39,8 @@ var totalFrames = 24;
 var currentFrame = 0;
 
 var vosX = window.innerWidth / 2;
+var x = 0;
+var y = 0;
 var foxLeft = false;
 var foxRight = false;
 
@@ -46,13 +48,24 @@ var mouse = {
 	x: undefined,
 	y: undefined
 }
+
 window.addEventListener('mousemove',
 					   function(event){
-	mouse.x = event.x;
-	mouse.y = event.y;
+	x = event.x;
+	y = event.y;
 })
 
-
+window.addEventListener('touchmove',
+					   function(event){
+	 if(e.type == 'touchstart' || e.type == 'touchmove' || e.type == 'touchend' || e.type == 'touchcancel'){
+        var touch = e.originalEvent.touches[0] || e.originalEvent.changedTouches[0];
+        x = touch.pageX;
+        y = touch.pageY;
+    } else if (e.type == 'mousedown' || e.type == 'mouseup' || e.type == 'mousemove' || e.type == 'mouseover'|| e.type=='mouseout' || e.type=='mouseenter' || e.type=='mouseleave') {
+        x = e.clientX;
+        y = e.clientY;
+    }
+})
 window.addEventListener('resize',
 						function(event){
 	canvas.width = window.innerWidth;
@@ -83,7 +96,7 @@ function init(){
 function animate(){
 	 context.clearRect(0, 0, window.innerWidth, window.innerHeight);
 	
-	if(vosX - mouse.x < -5){
+	if(vosX - x < -5){
 		vosX+= 2;
 		
 		 context.drawImage(vos_Right, shift, 0, frameWidth, frameHeight,
@@ -93,7 +106,7 @@ function animate(){
 		foxRight = true;
 		foxLeft = false;
 	}
-	if(vosX - mouse.x > 5){
+	if(vosX - x > 5){
 		vosX-= 2;
 		
 		 context.drawImage(vos_Left, shift, 0, frameWidth, frameHeight,
@@ -103,7 +116,7 @@ function animate(){
 		foxRight = false;
 		foxLeft = true;
 		
-	}if (vosX - mouse.x >= -5 && vosX - mouse.x <= 5){
+	}if (vosX - x >= -5 && vosX - x <= 5){
 		if(foxLeft){
 			context.drawImage(vos_Idle_Left,vosX - frameWidth/2, window.innerHeight - 32 - frameHeight);
 		}
