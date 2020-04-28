@@ -55,15 +55,13 @@ canvas.addEventListener('mousemove',
 	y = event.y;
 })
 
-canvas.addEventListener('ontouchmove',
-					   function(event){
-	window.addEventListener('touchmove',
+canvas.addEventListener('touchmove',
         function (event) {
-            x = event.touches[0].clientX;
-            y = event.touches[0].clientY;
-        })
+            var touch = event.touches[0];
+            x = touch.clientX,
+                    y = touch.clientY
 
-})
+        })
 
 window.addEventListener('resize',
 						function(event){
